@@ -36,4 +36,9 @@ export class AuthenService {
   public async UpdateName(body: any) {
     await lastValueFrom(this.http.put(`${this.constants.API_ENDPOINT}authen`, body));
   }
+
+  public async deleteImgProfile(body: any) {
+    await lastValueFrom(this.http.put(`${this.constants.API_ENDPOINT}uploads`, body));
+  }
+
 }

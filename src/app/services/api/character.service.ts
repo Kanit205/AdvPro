@@ -42,5 +42,13 @@ export class CharacterService {
     console.log(res);
     return res;
   }
+
+  public async UpdateName(body: any) {
+    await lastValueFrom(this.http.put(`${this.constants.API_ENDPOINT}character`, body));
+  }
+
+  public async DeleteImgDB(body: any) {
+    await lastValueFrom(this.http.put(`${this.constants.API_ENDPOINT}character/deleteImgDB`, body));
+  }
 }
 

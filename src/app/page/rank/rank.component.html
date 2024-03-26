@@ -9,15 +9,15 @@
       </div>
     </div>
     <div class="content-box">
-      <div *ngFor="let rk of rank; let i = index">
+      <div *ngFor="let rk of rank.slice(0, 10); let i = index">
         <div class="set-content-box">
-          <div *ngIf="rk.diffRank > 0" class="set-diff">
+          <div *ngIf="rk.YestRank > rk.CurRank" class="set-diff">
             <img src="../../../assets/up2.svg" alt="" style="margin-right: 0.5vw;">
             <span style="color: #1cd000;" class="rank-up-down">{{rk.diffRank}}</span>
           </div>
-          <div *ngIf="rk.diffRank < 0" class="set-diff">
+          <div *ngIf="rk.CurRank > rk.YestRank" class="set-diff">
             <img src="../../../assets/down.svg" alt="" style="margin-right: 0.5vw;">
-            <span style="color: #ff2424;" class="rank-up-down">{{rk.diffRank}}</span>
+            <span style="color: #ff2424;" class="rank-up-down">-{{rk.diffRank}}</span>
           </div>
           <div class="number-set">
             <h2>{{i + 1}}</h2>

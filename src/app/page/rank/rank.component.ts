@@ -29,16 +29,19 @@ export class RankComponent implements OnInit{
 
     Cur.forEach(CurDay => {
       const findYest = Yest.find(Yestfind => Yestfind.cid === CurDay.cid);
-      const diff = findYest ? findYest.topten - CurDay.topten : 0;
+      const diff = findYest ? Math.abs(findYest.ranking - CurDay.ranking) : 0;
 
       this.rank.push({
         cid: CurDay.cid,
         name: CurDay.name,
         img: CurDay.image,
-        point: CurDay.history_point,
-        CurRank: CurDay.topten,
+        point: CurDay.latest_point,
+        CurRank: CurDay.ranking,
+        YestRank: findYest.ranking,
         diffRank: diff
       });
     });
+    console.log(this.rank);
+
   }
 }

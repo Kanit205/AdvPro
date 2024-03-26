@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenService } from '../../services/api/authen.service';
 import { AuthenGetRes } from '../../model/authen_get_res';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
@@ -38,6 +39,10 @@ export class HeaderComponent implements OnInit{
   logout() {
     localStorage.removeItem('uid');
     this.router.navigate(['/Authen']);
+    Swal.fire({
+      title: "Logout Succesful.",
+      icon: "success"
+    })
   }
 
   Home() {

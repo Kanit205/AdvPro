@@ -5,10 +5,10 @@
     <div class="text-set">
       <!-- <span>{{character?.name}} </span> -->
       <div style="display: flex; align-items: center;">
-        <input type="text" value="{{character?.name}}" class="input-set">
+        <input type="text" value="{{character?.name}}" class="input-set" #name>
       </div>
       <div style="display: flex; align-items: center;">
-        <button class="btn-save">Save</button>
+        <button class="btn-save" (click)="updateName(name.value)" >Save</button>
       </div>
       <div>
         <span style="color: #CE6F00;">#{{character?.cid}}</span>
@@ -20,10 +20,10 @@
       <span> Point</span>
     </div>
     <div style="margin-top: 1.7vw;">
-      <button class="delete-btn">Delete</button>
+      <button class="delete-btn" (click)="DeleteImg()">Delete</button>
     </div>
   </div>
-  <div style="width: 50%; height: 50%; margin-left: 2vw; background-color: aliceblue; border-radius: 20px;">
+  <div style="width: 50%; height: 55%; margin-left: 2vw; background-color: aliceblue; border-radius: 20px;">
     <canvas id="myChart" style="width: 50%; height: 50%"></canvas>
   </div>
 </div>
