@@ -49,6 +49,10 @@ export class HeaderComponent implements OnInit{
     this.router.navigate(['']);
   }
 
+  Admin() {
+    this.router.navigate(['/Admin']);
+  }
+
   Profile() {
     this.router.navigate(['/Profile']);
   }
