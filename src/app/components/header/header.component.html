@@ -20,6 +20,24 @@
   </div>
 </div>
 
-<ng-template #admin></ng-template>
+<ng-template #admin>
+  <div class="bg-set">
+    <div class="layout-logo">
+      <img src="../../../assets/A N I H O T.svg" alt="" style="width: 230px;" class="logo-set" (click)="Admin()">
+    </div>
+    <div class="layout-logo2" style="margin-right: 9vw;">
+      <div style="display: flex; color: #ffffffd8;">
+        <h2 class="text-menu-set" (click)="rank()">Ranking</h2>
+        <div *ngIf="status === 0">
+          <h2 class="text-menu-set" (click)="login()">Login</h2>
+        </div>
+        <div *ngIf="status === 1" style="display: flex;">
+          <h2 class="text-menu-set">Settime</h2>
+          <h2 class="text-menu-set" (click)="logout()">Logout</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
 
 
