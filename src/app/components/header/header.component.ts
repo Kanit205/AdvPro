@@ -12,9 +12,10 @@ import Swal from 'sweetalert2';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent {
   findLogin!: AuthenGetRes;
   status: number = 0;
+  type: number = 0;
 
   constructor(private router: Router, private authenService: AuthenService) { }
 
@@ -27,6 +28,10 @@ export class HeaderComponent implements OnInit{
     if (id) {
       this.findLogin = await this.authenService.getUserID(parseInt(id));
       this.status = 1;
+
+      if (this.findLogin.type === 1) this.type = this.findLogin.type;
+      else this.type = this.findLogin.type;
+
     } else {
       this.status = 0;
     }
@@ -41,12 +46,17 @@ export class HeaderComponent implements OnInit{
     this.router.navigate(['/Authen']);
     Swal.fire({
       title: "Logout Succesful.",
-      icon: "success"
+      icon: "success",
+      confirmButtonColor: "#434343",
     })
   }
 
   Home() {
     this.router.navigate(['']);
+  }
+
+  Admin() {
+    this.router.navigate(['/Admin']);
   }
 
   Profile() {

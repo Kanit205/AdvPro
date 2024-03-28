@@ -1,7 +1,8 @@
 <app-header></app-header>
 <div class="cen-set">
   <div class="box">
-    <img src="{{character?.image}}" alt="" class="img-set">
+    <input type="file" hidden (change)="EditImg($event)" #newimg>
+    <img src="{{character?.image}}" alt="" class="img-set" (click)="newimg.click()">
     <div class="text-set">
       <!-- <span>{{character?.name}} </span> -->
       <div style="display: flex; align-items: center;">

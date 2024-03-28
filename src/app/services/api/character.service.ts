@@ -50,5 +50,15 @@ export class CharacterService {
   public async DeleteImgDB(body: any) {
     await lastValueFrom(this.http.put(`${this.constants.API_ENDPOINT}character/deleteImgDB`, body));
   }
+
+  public async AllCharacter() {
+    const res = await lastValueFrom(this.http.get(`${this.constants.API_ENDPOINT}character/GetCharacter`));
+    console.log(res);
+    return res as CharacterGetRes[];
+  }
+
+  public async UpdateImage(formData : FormData) {
+    await lastValueFrom(this.http.put(`${this.constants.API_ENDPOINT}uploads/updateCharacterImg`, formData));
+  }
 }
 

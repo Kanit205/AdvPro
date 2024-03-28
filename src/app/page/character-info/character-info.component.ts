@@ -1,3 +1,4 @@
+import { VoteService } from './../../services/api/vote.service';
 import { AuthenService } from './../../services/api/authen.service';
 import { CharacterService } from './../../services/api/character.service';
 import { Component, OnInit } from '@angular/core';
@@ -20,13 +21,14 @@ export class CharacterInfoComponent implements OnInit {
   character: CharacterGetRes | undefined;
   cid: any;
   graphData: graphData | undefined;
+  fileSelect: File | null = null;
 
   potGraph: Chart.ChartData = {
     labels: [],
     datasets: [],
   }
 
-  constructor(private characterService: CharacterService, private activatedRoute: ActivatedRoute, private authenService: AuthenService, private router: Router) { }
+  constructor(private characterService: CharacterService, private activatedRoute: ActivatedRoute, private authenService: AuthenService, private router: Router, private voteService: VoteService) { }
 
   ngOnInit() {
     this.setup();
@@ -106,7 +108,6 @@ export class CharacterInfoComponent implements OnInit {
   }
 
   DeleteImg() {
-
     Swal.fire({
       icon: 'question',
       title: 'Are you sure to delete?',
@@ -116,6 +117,10 @@ export class CharacterInfoComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.deleteImage(this.character!.image);
+        const body2 = {
+          cid: this.cid
+        }
+        this.voteService.HistoryReset(body2);
         const body = {
           cid: this.cid,
           uid: parseInt(localStorage.getItem('uid')!)
@@ -138,4 +143,34 @@ export class CharacterInfoComponent implements OnInit {
     this.authenService.deleteImgProfile(body);
   }
 
+  EditImg(event: any) {
+    Swal.fire({
+      icon: 'question',
+      title: 'Are you sure to Update?',
+      showCancelButton: true, // แสดงปุ่ม "Cancel"
+      confirmButtonText: 'Yes', // ปุ่ม "Yes"
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const body = {
+          url: this.character?.image,
+        }
+        this.authenService.deleteImgProfile(body);
+
+        this.fileSelect = event.target.files![0];
+        const formData = new FormData();
+        formData.append('img', this.fileSelect!);
+        formData.append('cid', this.cid);
+        this.characterService.UpdateImage(formData);
+
+        const body2 = {
+          cid: this.cid
+        }
+        this.voteService.HistoryReset(body2);
+        location.reload();
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        location.reload();
+      }
+    });
+  }
 }

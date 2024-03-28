@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { CharacterGetRes } from '../../model/character_get_res';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import * as bcrypt from 'bcryptjs';
 
 @Component({
   selector: 'app-profile',
@@ -20,6 +21,7 @@ export class ProfileComponent implements OnInit {
   character: CharacterGetRes[] = [];
   fileSelect: File | null = null;
   uid!: number;
+  changepage: number = 0;
 
   constructor(private authenService: AuthenService, private characterService: CharacterService, private router: Router) { }
 
@@ -92,5 +94,51 @@ export class ProfileComponent implements OnInit {
     console.log(filename);
 
     this.authenService.deleteImgProfile(body);
+  }
+
+  ChangePage() {
+    this.changepage = 1;
+  }
+
+  async ChangePass(email: string, newpass: string, conpass: string) {
+    if (email && newpass && conpass) {
+      if (this.profile?.email === email) {
+        if (newpass === conpass) {
+          const saltRounds = 10;
+          const pass = await bcrypt.hash(newpass, saltRounds);
+          const body = {
+            newpass: pass,
+            uid: parseInt(localStorage.getItem('uid')!)
+          };
+          this.authenService.changePass(body);
+          Swal.fire({
+            icon: 'success',
+            title: 'Change Password',
+            text: 'Password change successful.'
+          }).then(() => {
+            location.reload();
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Sorry Passwords don\'t match.',
+            confirmButtonColor: "#434343",
+          });
+        }
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Sorry Invalid email.',
+          confirmButtonColor: "#434343",
+        });
+      }
+    } else {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Please fill in complete information.',
+        confirmButtonColor: "#434343",
+      });
+    }
+
   }
 }

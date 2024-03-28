@@ -56,6 +56,7 @@ export class UploadComponent implements OnInit {
           showCancelButton: true, // แสดงปุ่ม "Cancel"
           confirmButtonText: 'Yes', // ปุ่ม "Yes"
           cancelButtonText: 'No', // ปุ่ม "No"
+          confirmButtonColor: "#434343",
         }).then( async (result) => {
           if (result.isConfirmed) {
             const formData = new FormData();
@@ -72,7 +73,8 @@ export class UploadComponent implements OnInit {
         Swal.fire({
           title: "Max Limit Image",
           text: "Sorry can't Upload Image.",
-          icon: "info"
+          icon: "info",
+          confirmButtonColor: "#434343"
         }).then(() => {
           this.router.navigate(['/Profile']);
         });

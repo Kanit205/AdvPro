@@ -44,13 +44,13 @@ export class VoteComponent {
         win = this.Charac2[1].cid;
         lose = this.Charac2[0].cid;
       }
-      console.log("win:" + win + "lose:" + lose);
+      // console.log("win:" + win + "lose:" + lose);
 
       this.winner = await this.characterService.getCharacterBycid(win!);
       this.loser = await this.characterService.getCharacterBycid(lose!);
 
-      console.log(this.winner);
-      console.log(this.loser);
+      // console.log(this.winner);
+      // console.log(this.loser);
 
       this.Ea = 1 / (1 + 10 ** ((this.loser.total_point - this.winner.total_point) / 400));
       this.Eb = 1 / (1 + 10 ** ((this.winner.total_point - this.loser.total_point) / 400));

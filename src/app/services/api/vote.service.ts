@@ -17,7 +17,11 @@ export class VoteService {
   }
 
   public async pointSet(body: any) {
-    console.log(body);
+    // console.log(body);
     await lastValueFrom(this.http.put(`${this.constants.API_ENDPOINT}vote`, body));
+  }
+
+  public async HistoryReset(body: any) {
+    await lastValueFrom(this.http.put(`${this.constants.API_ENDPOINT}vote/deleteHistory`, body));
   }
 }

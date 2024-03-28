@@ -4,7 +4,6 @@ export interface CharacterGetRes {
   image:       string;
   name:        string;
   total_point: number;
-  old_point:   number;
   date:        Date;
 }
 

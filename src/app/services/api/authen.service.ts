@@ -1,8 +1,8 @@
+import { AuthenGetRes } from './../../model/authen_get_res';
 import { Injectable } from '@angular/core';
 import { Constants } from '../../config/constants';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
-import { AuthenGetRes } from '../../model/authen_get_res';
 
 @Injectable({
   providedIn: 'root'
@@ -41,4 +41,12 @@ export class AuthenService {
     await lastValueFrom(this.http.put(`${this.constants.API_ENDPOINT}uploads`, body));
   }
 
+  public async GetAllUser() {
+    const res = await lastValueFrom(this.http.get(`${this.constants.API_ENDPOINT}authen/AllUser`));
+    return res as AuthenGetRes[];
+  }
+
+  public async changePass(body: any) {
+    await lastValueFrom(this.http.put(`${this.constants.API_ENDPOINT}authen/changePass`, body));
+  }
 }

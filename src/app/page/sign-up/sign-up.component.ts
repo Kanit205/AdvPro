@@ -3,6 +3,8 @@ import { AuthenGetRes } from './../../model/authen_get_res';
 import { AuthenService } from './../../services/api/authen.service';
 import { Component, OnInit } from '@angular/core';
 import * as bcrypt from 'bcryptjs';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-sign-up',
@@ -24,7 +26,7 @@ export class SignUpComponent implements OnInit{
     if (user && email && pass && conpass) {
       const checkeamil = await this.authenService.getUser(email);
       if (!checkeamil) {
-        if (pass === conpass) {
+          if (pass === conpass) {
           const saltRounds = 10;
           pass = await bcrypt.hash(pass, saltRounds);
           const body = {
@@ -41,7 +43,18 @@ export class SignUpComponent implements OnInit{
         }
       } else {
         console.log("Have Email");
+        Swal.fire({
+          icon: 'error',
+          title: 'This email address is already used.',
+          confirmButtonColor: "#434343"
+        })
       }
+    } else {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Please fill in complete information.',
+        confirmButtonColor: "#434343",
+      });
     }
   }
 
